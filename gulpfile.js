@@ -36,6 +36,7 @@ gulp.task('html', ['styles', 'scripts'], function () {
         .pipe($.uglify())
         .pipe(jsFilter.restore())
         .pipe(cssFilter)
+        .pipe($.uncss(({html: ['app/index.html']})))
         .pipe($.csso())
         .pipe(cssFilter.restore())
         .pipe($.useref.restore())
