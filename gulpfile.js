@@ -1,48 +1,43 @@
 'use strict';
-// generated on 2014-09-08 using generator-gulp-webapp 0.1.0
 
 var gulp = require('gulp');
 
-// load plugins
 var $ = require('gulp-load-plugins')();
-var mainBowerFiles = require('main-bower-files');
+var bowerFiles = require('main-bower-files');
+var del = require('del');
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
 
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
         .pipe($.plumber())
-        .pipe($.rubySass({
-            style: 'expanded',
-            precision: 10
-        }))
-        .pipe($.autoprefixer('last 1 version'))
+        .pipe($.sass.sync({
+            outputStyle: 'expanded',
+            precision: 10,
+            includePaths: ['.']
+        }).on('error', $.sass.logError))
+        .pipe($.autoprefixer({browsers: ['last 1 version']}))
         .pipe(gulp.dest('.tmp/styles'))
-        .pipe($.size());
+        .pipe(reload({stream: true}));
 });
 
 gulp.task('scripts', function () {
     return gulp.src('app/scripts/**/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter(require('jshint-stylish')))
-        .pipe($.size());
 });
 
 gulp.task('html', ['styles', 'scripts'], function () {
-    var jsFilter = $.filter('**/*.js');
-    var cssFilter = $.filter('**/*.css');
+    var assets = $.useref.assets({searchPath: '{.tmp,app}'})
 
     return gulp.src('app/*.html')
-        .pipe($.useref.assets({searchPath: '{.tmp,app}'}))
-        .pipe(jsFilter)
-        .pipe($.uglify())
-        .pipe(jsFilter.restore())
-        .pipe(cssFilter)
-        .pipe($.uncss(({html: ['app/index.html']})))
-        .pipe($.csso())
-        .pipe(cssFilter.restore())
-        .pipe($.useref.restore())
+        .pipe(assets)
+        .pipe($.if('*.js', $.uglify()))
+        .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
+        .pipe($.if('*.css', $.uncss(({html: ['app/index.html']}))))
+        .pipe(assets.restore())
         .pipe($.useref())
-        .pipe(gulp.dest('dist'))
-        .pipe($.size());
+        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('images', function () {
@@ -53,15 +48,13 @@ gulp.task('images', function () {
             interlaced: true
         }))
         .pipe(gulp.dest('dist/images'))
-        .pipe($.size());
 });
 
 gulp.task('fonts', function () {
-    return gulp.src(mainBowerFiles())
+    return gulp.src(bowerFiles())
         .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
         .pipe($.flatten())
         .pipe(gulp.dest('dist/fonts'))
-        .pipe($.size());
 });
 
 gulp.task('extras', function () {
@@ -69,33 +62,29 @@ gulp.task('extras', function () {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+gulp.task('clean', function (cb) {
+    del(['.tmp', 'dist'], cb);
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'extras']);
+gulp.task('build', ['html', 'images', 'fonts', 'extras'], function() {
+    return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+});
 
 gulp.task('default', ['clean'], function () {
     gulp.start('build');
 });
 
-gulp.task('connect', function () {
-    var connect = require('connect');
-    var app = connect()
-        .use(require('connect-livereload')({ port: 35729 }))
-        .use(connect.static('app'))
-        .use(connect.static('.tmp'))
-        .use(connect.directory('app'));
-
-    require('http').createServer(app)
-        .listen(9000)
-        .on('listening', function () {
-            console.log('Started connect web server on http://localhost:9000');
-        });
-});
-
-gulp.task('serve', ['connect', 'styles'], function () {
-    require('opn')('http://localhost:9000');
+gulp.task('serve', ['styles'], function () {
+    browserSync({
+        notify: false,
+        port: 9000,
+        server: {
+            baseDir: ['.tmp', 'app'],
+            routes: {
+                '/bower_components': 'bower_components'
+            }
+        }
+    });
 });
 
 // inject bower components
@@ -111,7 +100,7 @@ gulp.task('wiredep', function () {
     gulp.src('app/*.html')
         .pipe(wiredep({
             directory: 'app/bower_components',
-            exclude: ['bootstrap-sass-official']
+            exclude: ['bootstrap-sass']
         }))
         .pipe(gulp.dest('app'));
 });
