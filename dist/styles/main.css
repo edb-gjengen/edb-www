@@ -1,10 +1,16 @@
+@charset "UTF-8";
+
 /*!
- * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+img {
+  border: 0;
+}
 
 body {
   margin: 0;
@@ -14,8 +20,6 @@ html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  font-size: 10px;
-  -webkit-tap-highlight-color: transparent;
 }
 
 header {
@@ -36,7 +40,6 @@ h1 {
 }
 
 img {
-  border: 0;
   vertical-align: middle;
 }
 
@@ -89,14 +92,14 @@ input::-moz-focus-inner {
   }
 }
 
-body {
-  background-color: #fff;
-}
-
 .btn,
 .btn-primary:active,
 .btn:active {
   background-image: none;
+}
+
+body {
+  background-color: #fff;
 }
 
 @font-face {
@@ -109,6 +112,11 @@ body {
 :after,
 :before {
   box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -167,10 +175,6 @@ h4 {
   font-size: 18px;
 }
 
-.btn {
-  text-align: center;
-}
-
 .page-header {
   padding-bottom: 9px;
   margin: 40px 0 20px;
@@ -185,10 +189,24 @@ ul {
   margin-bottom: 10px;
 }
 
+@media (min-width:768px) {
+  .container {
+    width: 750px;
+  }
+}
+
 .container:after,
 .row:after,
 [class*=block-grid-]:after {
   clear: both;
+}
+
+.container:after,
+.container:before,
+.row:after,
+.row:before {
+  display: table;
+  content: " ";
 }
 
 .container {
@@ -196,23 +214,9 @@ ul {
   margin-left: auto;
 }
 
-.container:after,
-.container:before,
-.row:after,
-.row:before {
-  content: " ";
-  display: table;
-}
-
 .container {
   padding-left: 15px;
   padding-right: 15px;
-}
-
-@media (min-width:768px) {
-  .container {
-    width: 750px;
-  }
 }
 
 @media (min-width:992px) {
@@ -258,10 +262,16 @@ ul {
   color: #999;
 }
 
+.form-control::-ms-expand {
+  border: 0;
+  background-color: transparent;
+}
+
 .btn {
   display: inline-block;
   margin-bottom: 0;
   font-weight: 400;
+  text-align: center;
   vertical-align: middle;
   touch-action: manipulation;
   cursor: pointer;
@@ -381,6 +391,10 @@ ul {
   .block-grid-sm-3>.block-grid-item:nth-of-type(3n+1) {
     clear: both;
   }
+
+  .form-link {
+    display: none;
+  }
 }
 
 @media (min-width:992px) {
@@ -412,12 +426,6 @@ ul {
 
 h3 {
   font-weight: 700;
-}
-
-@media (min-width:768px) {
-  .form-link {
-    display: none;
-  }
 }
 
 .join-us-title {

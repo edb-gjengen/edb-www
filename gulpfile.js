@@ -28,15 +28,11 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('html', ['styles', 'scripts'], function () {
-    var assets = $.useref.assets({searchPath: '{.tmp,app}'})
-
     return gulp.src('app/*.html')
-        .pipe(assets)
+        .pipe($.useref({searchPath: '{.tmp,app}'}))
         .pipe($.if('*.js', $.uglify()))
         .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
         .pipe($.if('*.css', $.uncss(({html: ['app/index.html']}))))
-        .pipe(assets.restore())
-        .pipe($.useref())
         .pipe(gulp.dest('dist'));
 });
 
@@ -63,7 +59,7 @@ gulp.task('extras', function () {
 });
 
 gulp.task('clean', function (cb) {
-    del(['.tmp', 'dist'], cb);
+    return del(['.tmp', 'dist'], cb);
 });
 
 gulp.task('build', ['html', 'images', 'fonts', 'extras'], function() {
@@ -80,9 +76,6 @@ gulp.task('serve', ['styles'], function () {
         port: 9000,
         server: {
             baseDir: ['.tmp', 'app'],
-            routes: {
-                '/bower_components': 'bower_components'
-            }
         }
     });
 });
@@ -93,21 +86,19 @@ gulp.task('wiredep', function () {
 
     gulp.src('app/styles/*.scss')
         .pipe(wiredep({
-            directory: 'app/bower_components'
+            directory: 'bower_components'
         }))
         .pipe(gulp.dest('app/styles'));
 
     gulp.src('app/*.html')
         .pipe(wiredep({
-            directory: 'app/bower_components',
+            directory: 'bower_components',
             exclude: ['bootstrap-sass']
         }))
         .pipe(gulp.dest('app'));
 });
 
-gulp.task('watch', ['connect', 'serve'], function () {
-    var server = $.livereload();
-
+gulp.task('watch', ['serve'], function () {
     // watch for changes
 
     gulp.watch([
@@ -115,9 +106,7 @@ gulp.task('watch', ['connect', 'serve'], function () {
         '.tmp/styles/**/*.css',
         'app/scripts/**/*.js',
         'app/images/**/*'
-    ]).on('change', function (file) {
-        server.changed(file.path);
-    });
+    ]).on('change', reload);
 
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
