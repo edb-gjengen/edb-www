@@ -1,11 +1,11 @@
 'use strict';
 
-var gulp = require('gulp');
+const gulp = require('gulp');
 
-var $ = require('gulp-load-plugins')();
-var del = require('del');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+const $ = require('gulp-load-plugins')();
+const del = require('del');
+const browserSync = require('browser-sync');
+const reload = browserSync.reload;
 
 gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
@@ -36,7 +36,7 @@ gulp.task('images', function () {
             progressive: true,
             interlaced: true
         }))
-        .pipe(gulp.dest('dist/images'))
+        .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('extras', function () {

@@ -9,5 +9,3 @@ env.user = 'gitdeploy'
 def deploy():
     with cd(env.project_path):
         run('git pull')
-        # run('yarn')
-        # run('gulp')

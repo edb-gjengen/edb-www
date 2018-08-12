@@ -1,0 +1,4 @@
+## Install
+
+    yarn
+    yarn build
