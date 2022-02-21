@@ -1,140 +1,145 @@
 :root {
-    --container-width: 1140px;
-    --primary-color: #007bff;
-    --primary-color-light: hsl(211, 100%, 60%);
+  --container-width: 1140px;
+  --primary-color: #007bff;
+  --primary-color-light: hsl(211deg 100% 60%);
 }
 
 body {
-    font-family: monospace;
-    text-align: center;
-    font-size: 110%;
-    margin: 1rem;
+  font-family: monospace;
+  text-align: center;
+  font-size: 110%;
+  margin: 1rem;
 
-    @media screen and (min-width: 540px) {
-        text-align: left;
-    }
+  @media screen and (min-width: 540px) {
+    text-align: left;
+  }
 }
 
-h1, h2, h3, h4, h5 {
-    margin-bottom: 0.5em;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-bottom: 0.5em;
 }
 
 ul {
-    margin: 0;
+  margin: 0;
 }
 
 li {
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 section {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 a {
-    &:link {
-        color: var(--primary-color);
-        text-decoration: none;
-    }
-    &:hover {
-        text-decoration: underline;
-    }
-    &:active,
-    &:focus {
-        color: var(--primary-color-light);
-    }
-    &:visited {
-        color: var(--primary-color);
-    }
+  &:link {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
 
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:active,
+  &:focus {
+    color: var(--primary-color-light);
+  }
+
+  &:visited {
+    color: var(--primary-color);
+  }
 }
 
 .brand {
-    line-height: 1;
-    font-size: 1.2;
+  line-height: 1;
+  font-size: 1.2;
 
-    img {
-        position: relative;
-        top: 8px;
-    }
+  img {
+    position: relative;
+    top: 8px;
+  }
 }
 
-
 .cta {
-    display: block;
+  display: block;
 
-    @media screen and (min-width: 540px) {
-        display: none;
-    }
+  @media screen and (min-width: 540px) {
+    display: none;
+  }
 }
 
 .edb-brick {
-    height: 40px;
-    width: auto;
+  height: 40px;
+  width: auto;
 }
 
 .contact-info {
-    margin-bottom: 0;
-    text-align: left;
+  margin-bottom: 0;
+  text-align: left;
 }
 
 /* Tools */
 .tool-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-    max-width: var(--container-width);
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  max-width: var(--container-width);
 
-    @media screen and (min-width: 540px) {
-        display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(2, 1fr);
+  @media screen and (min-width: 540px) {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  > li {
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    margin-bottom: 20px;
+
+    img {
+      max-width: 100%;
     }
-
-    @media screen and (min-width: 992px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    > li {
-        align-items: center;
-        justify-content: center;
-        padding-bottom: 0;
-        margin-bottom: 20px;
-
-        img {
-            max-width: 100%;
-        }
-    }
+  }
 }
 
 .form-wrap {
-    position: relative;
-    padding-bottom: 75%;
-    height: 0;
-    overflow: hidden;
-    max-width: var(--container-width);
+  position: relative;
+  padding-bottom: 75%;
+  height: 0;
+  overflow: hidden;
+  max-width: var(--container-width);
 }
 
 #contact-form {
-    border: 0;
-    margin: 0;
-    position: absolute;
-    top:0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  border: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .love {
-    color: #faafba;
+  color: #faafba;
 }
 
 .credits {
-    margin-top: 25px;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #666;
-    font-size: 12px;
-    max-width: var(--container-width);
+  margin-top: 25px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  max-width: var(--container-width);
 }

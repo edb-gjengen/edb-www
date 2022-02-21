@@ -5,12 +5,16 @@
   "scripts": {
     "build": "sass --no-source-map --style=compressed app/main.scss app/main.css",
     "format": "prettier --write app",
-    "lint": "prettier --check app",
+    "lint": "prettier --check app;",
+    "lint:styles": "stylelint app/main.scss",
     "watch": "sass --watch app/main.scss app/main.css"
   },
   "devDependencies": {
     "prettier": "2.5.1",
-    "sass": "^1.49.8"
+    "sass": "^1.49.8",
+    "stylelint": "^14.5.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard-scss": "^3.0.0"
   },
   "engines": {
     "node": ">=16",
