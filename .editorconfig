@@ -10,6 +10,7 @@ root = true
 # Change these settings to your own preference
 indent_style = space
 indent_size = 4
+max_line_length = 120
 
 # We recommend you to keep these unchanged
 end_of_line = lf
@@ -21,9 +22,5 @@ insert_final_newline = true
 trim_trailing_whitespace = false
 
 [package.json]
-indent_style = space
-indent_size = 2
-
-[bower.json]
 indent_style = space
 indent_size = 2

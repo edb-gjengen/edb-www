@@ -2,19 +2,18 @@
   "name": "edb-www",
   "version": "0.0.1",
   "private": true,
-  "dependencies": {
-    "bootstrap": "^4.3.1",
-    "jquery": "^3.2.1",
-    "popper.js": "^1.14.7"
-  },
   "scripts": {
     "build": "sass --no-source-map --style=compressed app/main.scss app/main.css",
+    "format": "prettier --write app",
+    "lint": "prettier --check app",
     "watch": "sass --watch app/main.scss app/main.css"
   },
   "devDependencies": {
-    "sass": "^1.20.1"
+    "prettier": "2.5.1",
+    "sass": "^1.49.8"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=16",
+    "npm": ">=8"
   }
 }

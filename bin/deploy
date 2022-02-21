@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+
+PROJECT_PATH=/var/www/neuf.no/edb
+
+echo "Deploying bbs to ${PROJECT_PATH}"
+cd "$PROJECT_PATH" || exit 1
+git pull
+
+npm run i
+npm run build
