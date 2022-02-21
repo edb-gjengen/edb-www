@@ -4,13 +4,17 @@
   --primary-color-light: hsl(211deg 100% 60%);
 }
 
+// FIXME: use CSS props for media query breakpoints
+$small: 540px;
+$large: 992px;
+
 body {
   font-family: monospace;
   text-align: center;
   font-size: 110%;
   margin: 1rem;
 
-  @media screen and (min-width: 540px) {
+  @media screen and (min-width: $small) {
     text-align: left;
   }
 }
@@ -68,7 +72,7 @@ a {
 .cta {
   display: block;
 
-  @media screen and (min-width: 540px) {
+  @media screen and (min-width: $small) {
     display: none;
   }
 }
@@ -91,13 +95,13 @@ a {
   padding: 0;
   max-width: var(--container-width);
 
-  @media screen and (min-width: 540px) {
+  @media screen and (min-width: $small) {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: $large) {
     grid-template-columns: repeat(3, 1fr);
   }
 
