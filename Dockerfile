@@ -1,7 +1,7 @@
 # Build
 FROM node:18-alpine AS build
 
-WORKDIR /app
+WORKDIR /edb-www
 
 COPY package.json package-lock.json ./
 
@@ -14,7 +14,7 @@ RUN npm run build
 # Serve
 FROM nginx:stable-alpine AS runtime
 
-COPY --from=build /app /usr/share/nginx/html
+COPY --from=build /edb-www/app /usr/share/nginx/html
 
 EXPOSE 80
 
